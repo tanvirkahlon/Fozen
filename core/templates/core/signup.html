@@ -1,0 +1,48 @@
+{% extends 'core/base.html' %}
+
+{% block title %} Sign Up {% endblock %}
+
+{% block content %}
+<div class="w-1/2 my-8 bg-gray-100 mx-auto rounded-xl text-center border border-gray-300 p-6">
+    <h1 class="mt-8 mb-8 font-bold text-xl border-b border-gray-300 pb-4"> SIGN UP</h1>
+
+    <form method="post" action=".">
+        {% csrf_token %}
+        
+
+        {{ form.non_field_errors }}
+
+        <div class="mb-3">
+            <label class="inline-block mb-2 text-sm font-semibold">USERNAME</label>
+            {{ form.username }}
+        </div>
+
+        <div class="mb-3">
+            <label class="inline-block mb-4 text-sm font-semibold">EMAIL</label>
+            {{ form.email }}
+        </div>
+
+        <div class="mb-3">
+            <label class="inline-block mb-4 text-sm font-semibold">PASSWORD</label>
+            {{ form.password1 }}
+        </div>
+
+        <div class="mb-3">
+            <label class="inline-block mb-2 text-sm font-semibold">CONFIRM PASSWORD</label>
+            {{ form.password2 }}
+        </div>
+
+        {% if form.errors or form.non_field_errors %}
+        <div class="mb-3 text-sm p-6 bg-red-100 rounded-xl">
+            {% for field in form %}
+                {{ field.errors}}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <button class="mb-4 mt-4 py-2 px-4 text-sm bg-black hover:bg-gray-800 rounded-md text-white">SUBMIT</button>
+        <!-- Adjust the padding, font size, and colors as needed -->
+    </form>
+</div>
+
+{% endblock %}

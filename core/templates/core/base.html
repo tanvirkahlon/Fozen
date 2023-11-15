@@ -1,22 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script src="http://cdn.tailwindcss.com"></script>
+    <!-- Link to the external Tailwind CSS file -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+
     <title>{% block title %} {% endblock %} | Fozén</title>
 </head>
 <body>
     <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200">
+        
         <a href="/" class="text-xl font-bold">FOZÉN</a>
 
         <div class="space-x-6">
             <a href="#" class="text-lg font-semibold hover:text-gray-500">EXPLORE</a>
-            <a href="#" class="text-lg font-semibold hover:text-gray-500">LOG IN</a>
-            <a href="#" class="text-lg font-semibold hover:text-gray-500">SIGN UP</a>
             <a href="#" class="text-lg font-semibold hover:text-gray-500">BAG</a>
-        </div>
+            {% if request.user.is_authenticated %}
+                <a href="#" class="text-lg font-semibold hover:text-gray-500">DASHBOARD</a>
+                <a href="#" class="text-lg font-semibold hover:text-gray-500">INBOX</a>
+            {% else %}
+                <a href="{% url 'core:signup' %}" class="text-lg font-semibold hover:text-gray-500">SIGN UP</a>
+                <a href="{% url 'core:login' %}" class="text-lg font-semibold hover:text-gray-500">LOG IN</a>
+            {% endif %}
+            </div>
     </nav>
     <div class="px-6 py-6">
         {% block content %}
@@ -26,12 +34,13 @@
         <div class="w-2/3 pr-10">
             <h3 class="mb-5 font-bold text-white">ABOUT</h3>
             <p class="text-sm font-semibold text-gray-400">WEAVING OPULENCE, INNOVATION AND DRAWING INSPIRATION FROM THE TIMELESS ALLURE OF ICONIC BRANDS</p>
+            <p class="text-xs font-semibold text-gray-400">All images and content from YSL Saint Laurent are the exclusive intellectual property of YSL Saint Laurent. All rights reserved by YSL Saint Laurent.</p>
         </div>
 
         <div class="w-1/3">
             <ul class="space-y-2">
                 <li><a href="#" class="font-semibold text-gray-300 hover:text-white">ABOUT</a></li>
-                <li><a href="{% url 'contact' %}" class="font-semibold text-gray-300 hover:text-white">CONTACT</a></li>
+                <li><a href="{% url 'core:contact' %}" class="font-semibold text-gray-300 hover:text-white">CONTACT</a></li>
                 <li><a href="#" class="font-semibold text-gray-300 hover:text-white">CLIENT SERVICE</a></li>
                 <li><a href="#" class="font-semibold text-gray-300 hover:text-white">SUSTAINABILITY</a></li>
             </ul>
